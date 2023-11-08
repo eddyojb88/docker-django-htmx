@@ -17,14 +17,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from example import views as example_views
+from django_htmx_examples import views as example_views
+from app import views as app_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', app_views.index),
     path('app/',  include('app.urls')),
-    path('example-htmx/',  include('example.urls')),
-
-    path("example-htmx/", example_views.index),
+    path('example-htmx/',  include('django_htmx_examples.urls')),
+    path("example-htmx/", example_views.index, name='django-htmx-index'),
     path("favicon.ico", example_views.favicon),
     path("csrf-demo/", example_views.csrf_demo),
     path("csrf-demo/checker/", example_views.csrf_demo_checker),

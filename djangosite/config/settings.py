@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     "django_htmx",
     'compressor',
     "app",
-    'example',
+    'django_htmx_examples',
     
 ]
 
