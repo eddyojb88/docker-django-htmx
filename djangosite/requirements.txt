@@ -1,2 +1,6 @@
 Django
 uWSGI
+faker
+django-htmx
+django_compressor
+django-libsass

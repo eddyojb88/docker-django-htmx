@@ -1,0 +1,83 @@
+{% load static %}
+<html id="id-html" lang="{{ language_code }}" >
+
+<head>
+  <title> Dashboard</title>
+  <meta charset="UTF-8">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/htmx.org@1.7.0" integrity="sha384-EzBXYPt0/T6gxNp0nuPtLkmRpmDBbjg6WmCUZRLXBBwYYmwAUxzlSGej0ARHX0Bo" crossorigin="anonymous">
+  </script>
+  <script src="https://unpkg.com/hyperscript.org@0.9.5"></script>
+  <script src="{% static 'app/js/hx-echarts.js'%}"></script>
+  
+</head>
+
+<body class="bg-slate-100">
+  <div class="w-full max-w-5xl mx-auto flex flex-col space-y-5 p-4">
+    <div class="flex px-4 py-2 justify-between mt-10">
+      <span class="text-gray-600 font-semibold">📊 analytics.io</span>
+      <div class='flex' hx-ext="echarts" _="on htmx:afterOnLoad take .text-indigo-600 for event.target">
+        {% include 'app/components/chart_filter.html' with period='week' c=charts.0 label='Last Week' selected=True %}
+        {% include 'app/components/chart_filter.html' with period='month' c=charts.0 label='Last Month' %}
+      </div>
+    </div>
+    <div class="w-full grid grid-cols-2 gap-6">
+     {# loop through the list of charts and add placeholder divs to grid #}
+      {% for c in charts %}
+        <div class="bg-white shadow rounded-lg p-4 {% if forloop.counter0 == 0 %}col-span-2 {% endif %}">
+          <div id="{{ c.chart_id }}" class="chart-container" style="width:{{ c.width }}; height:{{ c.height }};">  
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.3.3/echarts.min.js" integrity="sha512-2L0h0GhoIHQEjti/1KwfjcbyaTHy+hPPhE1o5wTCmviYcPO/TD9oZvUxFQtWvBkCSTIpt+fjsx1CCx6ekb51gw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script>
+
+    document.addEventListener("DOMContentLoaded", function(){
+
+        {% for c in charts %}
+
+            var chart_{{ c.chart_id }} = echarts.init(
+                document.getElementById('{{ c.chart_id }}'), '{{ c.theme }}', {renderer: '{{ c.renderer }}'});
+
+            {% for js in c.js_functions.items %}
+                {{ js }}
+            {% endfor %}
+
+            var option_{{ c.chart_id }} = {{ c.json_contents|safe }};
+            chart_{{ c.chart_id }}.setOption(option_{{ c.chart_id }});
+
+            {% if c.is_geo_chart %}
+
+                var bmap = chart_{{ c.chart_id }}.getModel().getComponent('bmap').getBMap();
+
+                {% if c.bmap_js_functions %}
+
+                {% for fn in c.bmap_js_functions.items %}
+
+                    {{ fn }}
+
+                {% endfor %}
+
+                {% endif %}
+
+             {% endif %}
+
+      window.addEventListener('resize', function(){
+        console.log("resize");
+        chart_{{ c.chart_id }}.resize();
+      })
+
+    {% endfor %}
+  })
+    
+  </script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+<button 
+hx-get="{% url 'charts-hx' %}?chart_id={{ c.chart_id }}&chart_type=page_views&period={{period}}"
+hx-swap="none"
+id="id_last_week_filter_btn_{{period}}" 
+class="bg-white rounded shadow p-2 text-sm flex items-center font-semibold mr-2 cursor-pointer {% if selected %}text-indigo-600 {% else %}text-gray-600 {% endif %}">{{label}}
+</button>

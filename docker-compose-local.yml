@@ -5,12 +5,12 @@ services:
   django:
     image: django_local
     build:
-      context: ./django
+      context: ./djangosite
     env_file:
       - .env.dev
     ports:
       - 8000:8000
     volumes:
-      - ./django/:/app
+      - ./djangosite/:/app
     environment:
       - VSCODE_DEV=1

@@ -5,4 +5,7 @@ from . import views
 
 urlpatterns = [
     path('index', views.index, name='index'),
+    path('getlinechart', views.getlinechart, name='getlinechart'),
+    path('echarts', views.dashboard_view, name='echarts-dashboard'),
+    path('charts', views.chart_view_hx, name='charts-hx')
 ]

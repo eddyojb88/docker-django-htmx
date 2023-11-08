@@ -1,1 +1,46 @@
-<h1> Hello World </h1>
+{% extends "app/_base.html" %}
+
+{% block main %}
+    <section>
+
+        <div class="container" style="height: 100vh;">
+            <!-- Header Row -->
+            <div class="row">
+                <div class="col">
+                    <h1 class="text-left mt-5">Example App with Plotly</h1>
+                </div>
+            </div>
+    
+            <!-- Button Row -->
+            <div class="row">
+                <div class="col text-center">
+
+                    <div class="btn btn-primary mt-5 mb-5"  hx-get="{% url 'getlinechart' %}" hx-target="#linechart1">
+                            Click me to get data
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col text-center">
+
+                         <div id='linechart1' class="col-10 fade-in">
+                         {% include 'app/components/linechart.html'%}
+                        </div> 
+                </div> 
+            </div>
+
+        </div>
+
+    <div class="d-flex align-items-center justify-content-center" style="height: 100vh;">
+
+  
+
+
+        
+    </div>
+    
+    </section>
+
+{% endblock %}

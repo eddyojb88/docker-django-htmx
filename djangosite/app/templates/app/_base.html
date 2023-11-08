@@ -1,0 +1,71 @@
+{% load django_htmx %}
+{% load static %}
+
+{% load compress %}
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>App</title>
+
+  <!-- An example of how we can configure htmx -->
+  <!-- https://htmx.org/docs/#config -->
+  <meta name="htmx-config" content='{"historyCacheSize": 15}'>
+
+  <!-- Load BootStrap -->
+
+  {% compress css %}
+    <!-- <link type="text/x-scss" href="{% static 'app/bootstrap/scss/bootstrap.scss' %}" rel="stylesheet" media="screen"> -->
+    <link type="text/x-scss" href="{% static 'app/theme.scss' %}" rel="stylesheet" media="screen">
+  {% endcompress %}
+
+  <script src="{% static 'app/bootstrap/js/bootstrap.js' %}" defer></script>
+
+  <link href="{% static 'app/app.css' %}" rel="stylesheet">
+
+  <script src="{% static 'htmx.js' %}" defer></script>
+  <script src="{% static 'ext/debug.js' %}" defer></script>
+  <script src="{% static 'ext/event-header.js' %}" defer></script>
+  
+
+
+</head>
+
+<!--
+  Enable htmx extensions for all requests:
+  * debug: https://htmx.org/extensions/debug/
+  * event-header: https://htmx.org/extensions/event-header/
+-->
+<body hx-ext="debug, event-header">
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand ms-3" href="#page-top"><img class='rounded' src="{% static 'app/img/logo5.svg' %}" alt="..."  style="height:68px; width:68px;"></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav me-5">
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'index' %}">Plotly 
+              <!-- <span class="sr-only">(current)</span> -->
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'echarts-dashboard' %}">eCharts</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <main id="main">
+    {% block main %}{% endblock %}
+  </main>
+  <footer class="page-footer fixed-bottom font-small bg-dark">
+    <p>
+      For more information see <a href="https://github.com/adamchainz/django-htmx">django-htmx</a> and <a href="https://htmx.org/">htmx</a>.
+    </p>
+  </footer>
+  {% django_htmx_script %}
+</body>
+</html>

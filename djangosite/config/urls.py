@@ -17,7 +17,22 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from example import views as example_views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('app/',  include('app.urls')),
+    path('example-htmx/',  include('example.urls')),
+
+    path("example-htmx/", example_views.index),
+    path("favicon.ico", example_views.favicon),
+    path("csrf-demo/", example_views.csrf_demo),
+    path("csrf-demo/checker/", example_views.csrf_demo_checker),
+    path("error-demo/", example_views.error_demo),
+    path("error-demo/trigger/", example_views.error_demo_trigger),
+    path("middleware-tester/", example_views.middleware_tester),
+    path("middleware-tester/table/", example_views.middleware_tester_table),
+    path("partial-rendering/", example_views.partial_rendering),
+
+
 ]
