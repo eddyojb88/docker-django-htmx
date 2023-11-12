@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from plotly.offline import plot
 import plotly.graph_objs as go
-
+import random
 
 def index(request):
     return render(request, "app/index.html", )
@@ -14,7 +14,12 @@ def getlinechart(request):
 
         fig = go.Figure()
 
-        scatter = go.Scatter(x=[0,1,2,3,4,5,6,7,8], y=[0,1,2,4,8,10,20,40],
+        x=[0,1,2,3,4,5,6,7,8]
+        
+        # Create a list with 5 random numbers between 0 and 100
+        y = [random.randint(1, 100) for _ in range(len(x))]
+
+        scatter = go.Scatter(x=x, y=y,
                             mode='lines+markers', name='test',
                             opacity=0.8, marker_color='hotpink', line=dict(width=4, shape='spline'))
         fig.add_trace(scatter)

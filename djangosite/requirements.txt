@@ -4,3 +4,5 @@ faker
 django-htmx
 django_compressor
 django-libsass
+plotly
+pyecharts

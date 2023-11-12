@@ -1,6 +1,38 @@
 {% extends "app/_base.html" %}
 
 {% block main %}
+<style>
+    @keyframes fade-in {
+      from { opacity: 0; }
+    }
+ 
+    @keyframes fade-out {
+      to { opacity: 0; }
+    }
+ 
+    @keyframes slide-from-right {
+      from { transform: translateX(90px); }
+    }
+ 
+    @keyframes slide-to-left {
+      to { transform: translateX(-90px); }
+    }
+ 
+    .slide-it {
+      view-transition-name: slide-it;
+    }
+ 
+    ::view-transition-old(slide-it) {
+      animation: 180ms cubic-bezier(0.4, 0, 1, 1) both fade-out,
+      600ms cubic-bezier(0.4, 0, 0.2, 1) both slide-to-left;
+    }
+    ::view-transition-new(slide-it) {
+      animation: 420ms cubic-bezier(0, 0, 0.2, 1) 90ms both fade-in,
+      600ms cubic-bezier(0.4, 0, 0.2, 1) both slide-from-right;
+    }
+ </style>
+
+
     <section>
 
         <div class="container" style="height: 100vh;">
@@ -15,7 +47,7 @@
             <div class="row">
                 <div class="col text-center">
 
-                    <div class="btn btn-primary mt-5 mb-5"  hx-get="{% url 'getlinechart' %}" hx-target="#linechart1">
+                    <div class="btn btn-primary mt-5 mb-5" hx-swap="innerHTML transition:true" hx-get="{% url 'getlinechart' %}" hx-target="#linechart1">
                             Click me to get data
                     </div>
 
@@ -25,7 +57,7 @@
             <div class="row">
                 <div class="col text-center">
 
-                         <div id='linechart1' class="col-10 fade-in">
+                         <div id='linechart1' class="col-10" > 
                          {% include 'app/components/linechart.html'%}
                         </div> 
                 </div> 

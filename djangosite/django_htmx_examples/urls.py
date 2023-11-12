@@ -5,7 +5,7 @@ from django.urls import path
 from django_htmx_examples import views
 
 urlpatterns = [
-    path("", views.index),
+    path("", views.index, ),
     path("favicon.ico", views.favicon),
     path("csrf-demo/", views.csrf_demo),
     path("csrf-demo/checker/", views.csrf_demo_checker),

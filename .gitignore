@@ -6,6 +6,7 @@
 dhparam/*
 !dhparam/.gitkeep
 
+__staticfiles/
 staticfiles/
 
 # Byte-compiled / optimized / DLL files
