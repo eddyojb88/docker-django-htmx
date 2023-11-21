@@ -8,10 +8,10 @@ This accompanies my article on Medium on the topic.
 
 Easiest and recommended way is to run with:
 
-docker compose up
+``` docker compose up ```
 
 Then navigate to:
 
-localhost:8000
+``` localhost:8000 ```
 
 and browse different example apps using the navigation bar.
